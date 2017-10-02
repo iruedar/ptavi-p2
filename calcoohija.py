@@ -1,26 +1,32 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import sys, calcoo
+import sys
+import calcoo
+
 
 class CalculadoraHija(calcoo.Calculadora):
 
     def mult(self):
-        return valor1 * valor2
+        return self.v1 * self.v2
 
     def div(self):
-        return valor1 / valor2
+        try:
+            return self.v1 / self.v2
+        except ZeroDivisionError:
+            sys.exit('Division by zero is not allowed')
 
-if __name__=='__main__':
+if __name__ == '__main__':
     try:
-        valor1 = int(sys.argv[1])
-        valor2 = int(sys.argv[3])
-        objeto = CalculadoraHija(valor1,valor2)
-        if int(sys.argv[3]) == 0:
-            sys.exit('La división entre cero no está permitida')
+        valor1 = float(sys.argv[1])
+        valor2 = float(sys.argv[3])
+        objeto = CalculadoraHija(valor1, valor2)
+
     except ValueError:
-        sys.exit('Error: debe usar números')
-  
+        sys.exit('Error: debe usar numeros')
+    except IndexError:
+        sys.exit('python3 calcoohija.py operando1 operacion operando2')
+
     if sys.argv[2] == 'suma':
         resultado = objeto.suma()
     elif sys.argv[2] == 'resta':
@@ -28,7 +34,7 @@ if __name__=='__main__':
     elif sys.argv[2] == 'multiplica':
         resultado = objeto.mult()
     elif sys.argv[2] == 'divide':
-        resultado = objeto.div()
+            resultado = objeto.div()
     else:
-        sys.exit('La operación debe ser suma, resta, multiplica o divide')
-    print('El resultado es:', resultado)
+        sys.exit('Introducir: operando1 operacion operando2')
+    print(resultado)
